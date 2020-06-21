@@ -1,6 +1,13 @@
 <?php include "cabecalho.php" ?>
 
 <?php
+
+$bd = new SQLite3("filmes.db");
+
+$sql = "SELECT * FROM filmes";
+$filmes = $bd->query($sql);
+
+
 $filme1 = [
     "titulo" => "Vingadores: Ultimato",
     "nota" => 9.7,
@@ -26,7 +33,7 @@ $filme4 = [
     "poster" => "https://image.tmdb.org/t/p/original/tAcDOFX0WludQhvTdmG2rDxyQRM.jpg"
 ];
 
-$filmes = [$filme1, $filme2, $filme3, $filme4];
+//$filmes = [$filme1, $filme2, $filme3, $filme4];
 ?>
 
 <body>
@@ -51,11 +58,7 @@ $filmes = [$filme1, $filme2, $filme3, $filme4];
 
     <div class="row">
         <!--primeiro filme cadastrado-->
-        <?php
-        for ($i = 0; $i < count($filmes); $i++) :
-            $filme = $filmes[$i];
-        ?>
-
+        <?php while($filme = $filmes->fetchArray()) : ?>
             <div class="col s3">
                 <div class="card hoverable">
                     <div class="card-image">
@@ -69,7 +72,7 @@ $filmes = [$filme1, $filme2, $filme3, $filme4];
                     </div>
                 </div>
             </div>
-        <?php endfor ?>
+        <?php endwhile ?>
         <!---->
 
     </div>
@@ -77,3 +80,4 @@ $filmes = [$filme1, $filme2, $filme3, $filme4];
     </div>
 </body>
 <html>
+
